@@ -1,0 +1,308 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>English Listening Center</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: a language-lab console — track rack on the left, one "booth" (player + tasks) on the right; stacks on phones. */
+:root{
+  --bg:#EEF2F1; --panel:#FFFFFF; --ink:#14241F; --muted:#5B6B66; --line:#D5DEDB;
+  --accent:#0E7A64; --accent-ink:#FFFFFF; --signal:#E8A317; --soft:#E1EEEA;
+  --ok:#1C7C3A; --ok-bg:#E2F3E7; --bad:#B3321F; --bad-bg:#FBE6E2;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1715; --panel:#16211E; --ink:#E6EFEC; --muted:#93A6A0; --line:#2A3A35;
+  --accent:#3FC3A1; --accent-ink:#082019; --signal:#F2B83A; --soft:#1C2E29;
+  --ok:#6BD58B; --ok-bg:#163223; --bad:#F08A78; --bad-bg:#3A1C17; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1715; --panel:#16211E; --ink:#E6EFEC; --muted:#93A6A0; --line:#2A3A35;
+  --accent:#3FC3A1; --accent-ink:#082019; --signal:#F2B83A; --soft:#1C2E29;
+  --ok:#6BD58B; --ok-bg:#163223; --bad:#F08A78; --bad-bg:#3A1C17; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;padding-bottom:18px;border-bottom:2px solid var(--ink);margin-bottom:22px}
+.brand small{display:block;font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.brand h1{font-family:var(--f-display);font-weight:800;font-size:clamp(28px,4.4vw,44px);line-height:1.02;margin:4px 0 0;letter-spacing:-.02em;text-wrap:balance}
+.brand h1 span{color:var(--accent)}
+.station{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-family:var(--f-mono);font-size:12px;padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--muted);white-space:nowrap}
+.chip b{color:var(--ink);font-weight:500}
+.grid{display:grid;grid-template-columns:300px minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:860px){.grid{grid-template-columns:minmax(0,1fr)}}
+aside h2,.sec-label{font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;font-weight:500}
+.unit-card{background:var(--ink);color:var(--bg);border-radius:14px;padding:18px;margin-bottom:16px}
+.unit-card .u{font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.75}
+.unit-card h3{font-family:var(--f-display);font-size:24px;margin:4px 0 10px;line-height:1.1}
+.unit-card ul{margin:0;padding-left:18px;font-size:14px;opacity:.9;display:grid;gap:3px}
+.meter{margin-top:14px;display:flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:12px}
+.meter .bar{flex:1;height:6px;background:color-mix(in srgb,var(--bg) 22%,transparent);border-radius:3px;overflow:hidden}
+.meter .bar i{display:block;height:100%;width:0;background:var(--signal);transition:width .4s}
+.tracks{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.tracks button{width:100%;display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:10px;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--ink);font:inherit;cursor:pointer}
+.tracks button:hover{border-color:var(--accent)}
+.tracks button[aria-current="true"]{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent);background:var(--soft)}
+.tno{font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+.tt{font-weight:700;font-size:15px;line-height:1.25}
+.td{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.status{font-family:var(--f-mono);font-size:11px;padding:2px 7px;border-radius:999px;border:1px solid var(--line);color:var(--muted);font-variant-numeric:tabular-nums}
+.status.done{background:var(--ok-bg);color:var(--ok);border-color:transparent}
+main.booth{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:clamp(18px,3vw,30px);min-width:0}
+.booth-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;align-items:baseline}
+.booth-head h2{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,3.2vw,34px);margin:2px 0 4px;line-height:1.1;text-wrap:balance}
+.focus{color:var(--muted);font-size:15px;margin:0}
+.player{margin:22px 0 8px;background:var(--soft);border-radius:14px;padding:16px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center}
+.play{width:62px;height:62px;border-radius:50%;border:none;background:var(--accent);color:var(--accent-ink);cursor:pointer;display:grid;place-items:center}
+.play svg{width:26px;height:26px;fill:currentColor}
+.wave{position:relative;height:56px;cursor:pointer;display:flex;align-items:center;gap:2px;min-width:0}
+@media (max-width:560px){.wave{gap:1px}}
+.wave span{flex:1;min-width:0;background:var(--line);border-radius:2px;transition:background .1s}
+.wave span.on{background:var(--accent)}
+.ctrl{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.ctrl .l{display:flex;gap:8px;flex-wrap:wrap}
+.btn{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btn[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.time{font-family:var(--f-mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.plays{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.plays b{color:var(--signal)}
+.hint{font-size:13px;color:var(--muted);margin:6px 0 0}
+.stages{display:grid;gap:22px;margin-top:22px}
+.stage{display:grid;grid-template-columns:120px minmax(0,1fr);gap:14px;border-top:1px solid var(--line);padding-top:16px}
+@media (max-width:560px){.stage{grid-template-columns:minmax(0,1fr);gap:6px}}
+.stage p{margin:0;max-width:65ch}
+.qs{list-style:none;margin:0;padding:0;display:grid;gap:14px;counter-reset:q}
+.q{counter-increment:q;display:grid;gap:8px}
+.q .qt{font-weight:700}
+.q .qt::before{content:counter(q) ". ";font-family:var(--f-mono);color:var(--muted);font-weight:500}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0}
+.opt label{display:inline-block;padding:7px 14px;border:1px solid var(--line);border-radius:999px;cursor:pointer;background:var(--panel)}
+.opt input:checked+label{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.opt input:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+.fill{font:inherit;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:min(100%,320px)}
+.fill:focus,.btn:focus-visible,.play:focus-visible,.tracks button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.fb{font-size:14px;font-weight:700;padding:2px 10px;border-radius:6px;justify-self:start}
+.fb.ok{background:var(--ok-bg);color:var(--ok)}
+.fb.bad{background:var(--bad-bg);color:var(--bad)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:6px}
+.primary{font:inherit;font-weight:700;background:var(--ink);color:var(--bg);border:none;border-radius:10px;padding:10px 18px;cursor:pointer}
+.score{font-family:var(--f-display);font-weight:700;font-size:20px}
+.transcript{margin-top:8px;background:var(--bg);border-radius:10px;padding:14px 16px;display:grid;gap:6px}
+.transcript div{display:grid;grid-template-columns:90px minmax(0,1fr);gap:10px}
+.transcript .who{font-family:var(--f-mono);font-size:12px;color:var(--accent);padding-top:3px}
+.transcript .intro{color:var(--muted);font-style:italic;grid-template-columns:minmax(0,1fr)}
+footer{margin-top:28px;font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <small>Universidad Pedagógica de El Salvador · Computer Center A</small>
+      <h1>English Listening <span>Center</span></h1>
+    </div>
+    <div class="station">
+      <span class="chip">Level <b>A1</b></span>
+      <span class="chip">Unit <b>1</b></span>
+      <span class="chip">Bring your <b>headphones</b></span>
+    </div>
+  </header>
+
+  <div class="grid">
+    <aside>
+      <div class="unit-card">
+        <div class="u" id="u-label"></div>
+        <h3 id="u-title"></h3>
+        <ul id="u-goals"></ul>
+        <div class="meter"><span id="m-text">0/6</span><div class="bar"><i id="m-bar"></i></div><span>tracks done</span></div>
+      </div>
+      <h2>Tracks</h2>
+      <ul class="tracks" id="tracks"></ul>
+    </aside>
+
+    <main class="booth" id="booth" aria-live="polite">
+      <div class="booth-head">
+        <div>
+          <div class="sec-label" id="b-no"></div>
+          <h2 id="b-title"></h2>
+          <p class="focus" id="b-focus"></p>
+        </div>
+      </div>
+
+      <div class="player">
+        <button class="play" id="play" aria-label="Play"><svg viewBox="0 0 24 24" id="play-ico"><path d="M8 5v14l11-7z"/></svg></button>
+        <div class="wave" id="wave" role="slider" aria-label="Audio position" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+        <div class="ctrl">
+          <div class="l">
+            <button class="btn" id="back5">↺ 5 s</button>
+            <button class="btn sp" data-s="0.75" aria-pressed="false">0.75×</button>
+            <button class="btn sp" data-s="1" aria-pressed="true">1×</button>
+          </div>
+          <span class="plays">Listened <b id="plays">0</b> times · recommended: 2</span>
+          <span class="time" id="time">0:00 / 0:00</span>
+        </div>
+        <audio id="audio" preload="metadata"></audio>
+      </div>
+      <p class="hint">Listen once for the general idea. Listen again and answer the questions.</p>
+
+      <div class="stages">
+        <section class="stage">
+          <div class="sec-label">Before listening</div>
+          <p id="pre"></p>
+        </section>
+        <section class="stage">
+          <div class="sec-label">While listening</div>
+          <form id="quiz" autocomplete="off">
+            <ol class="qs" id="qs"></ol>
+            <div class="actions">
+              <button class="primary" type="submit">Check answers</button>
+              <button class="btn" type="button" id="reset">Try again</button>
+              <span class="score" id="score"></span>
+            </div>
+          </form>
+        </section>
+        <section class="stage">
+          <div class="sec-label">After listening</div>
+          <p id="post"></p>
+        </section>
+        <section class="stage">
+          <div class="sec-label">Transcript</div>
+          <div>
+            <button class="btn" id="tbtn" aria-expanded="false">Show transcript</button>
+            <div class="transcript" id="tx" hidden></div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    <span>Audio and practice material created with AI tools by the project team · Proyecto socioeducativo, Práctica Profesional II</span>
+    <span>CEFR A1 · Pre / While / Post listening (Richards, 2008)</span>
+  </footer>
+</div>
+
+<script>
+const U = {"unit": "Unit 1", "title": "Hello! Nice to meet you", "level": "A1 (CEFR) — Beginner", "goals": ["Understand simple greetings and introductions.", "Recognize letters of the alphabet when names are spelled.", "Understand numbers 0–20 and phone numbers.", "Identify countries and nationalities in short conversations.", "Understand basic personal information (name, age, city, email)."], "narrator": "bf_emma", "tracks": [{"id": "01", "title": "Greetings and introductions", "focus": "Hello / Hi / Good morning / My name is… / Nice to meet you", "pre": "Before you listen: How do you say hello in English? Write three greetings you know.", "intro": "Track one. Greetings and introductions. Listen to Sofia and Daniel at the English Listening Center.", "lines": [["Sofia", "af_heart", "Good morning! Is this the English Listening Center?"], ["Daniel", "am_michael", "Yes, it is. Good morning! I'm Daniel. I'm the coordinator."], ["Sofia", "af_heart", "Hi, Daniel. My name is Sofia. Sofia Martinez."], ["Daniel", "am_michael", "Nice to meet you, Sofia."], ["Sofia", "af_heart", "Nice to meet you too."], ["Daniel", "am_michael", "Are you a student here?"], ["Sofia", "af_heart", "Yes, I am. I'm a student of English."], ["Daniel", "am_michael", "Great! Welcome. Computer number five is free."], ["Sofia", "af_heart", "Thank you! See you later."], ["Daniel", "am_michael", "Bye, Sofia. Have a nice day!"]], "exercises": [{"type": "mc", "q": "What time of day is it?", "options": ["Morning", "Afternoon", "Night"], "answer": 0}, {"type": "mc", "q": "Who is Daniel?", "options": ["A student", "The coordinator", "A teacher"], "answer": 1}, {"type": "mc", "q": "What is Sofia's last name?", "options": ["Martin", "Morales", "Martinez"], "answer": 2}, {"type": "mc", "q": "Which computer is free?", "options": ["Number two", "Number five", "Number nine"], "answer": 1}, {"type": "tf", "q": "Sofia is a student of English.", "answer": true}], "post": "After you listen: Practice the dialogue with a partner. Use your own name.", "peaks": [0.85, 0.51, 0.5, 0.37, 0.6, 0.2, 0.57, 0.64, 0.59, 0.6, 0.52, 0.34, 0.42, 0.0, 0.0, 0.37, 0.55, 0.12, 0.47, 0.37, 0.27, 0.44, 0.01, 0.0, 0.75, 0.28, 0.35, 0.41, 0.3, 0.51, 0.46, 0.37, 0.13, 0.0, 0.51, 0.31, 0.37, 0.34, 0.3, 0.22, 0.37, 0.35, 0.25, 0.0, 0.89, 0.41, 0.48, 0.4, 0.03, 0.0, 0.6, 0.29, 0.25, 0.04, 0.01, 1.0, 0.41, 0.28, 0.02, 0.0, 0.47, 0.67, 0.44, 0.32, 0.36, 0.16, 0.0, 0.64, 0.57, 0.17, 0.59, 0.33, 0.49, 0.51, 0.18, 0.0, 0.66, 0.26, 0.33, 0.36, 0.0, 0.72, 0.44, 0.1, 0.53, 0.33, 0.03, 0.0, 0.0, 0.0], "file": "audio/Unit1_Track01_greetings-and-introductions.mp3", "duration": 41.9}, {"id": "02", "title": "The alphabet: spelling names", "focus": "Letters A–Z / How do you spell…?", "pre": "Before you listen: Say the English alphabet. Which letters are difficult for you? (Example: E, I, G, J)", "intro": "Track two. The alphabet. Listen and write the names.", "lines": [["Daniel", "am_michael", "Hello. What's your name, please?"], ["Student", "af_bella", "My name is Karla."], ["Daniel", "am_michael", "How do you spell that?"], ["Student", "af_bella", "K. A. R. L. A. Karla."], ["Daniel", "am_michael", "Thank you. And what's your last name?"], ["Student", "af_bella", "Lopez. L. O. P. E. Z."], ["Daniel", "am_michael", "Perfect. Next, please. What's your name?"], ["Student 2", "am_adam", "Hi. I'm James. J. A. M. E. S."], ["Daniel", "am_michael", "And your last name?"], ["Student 2", "am_adam", "Brown. B. R. O. W. N."], ["Daniel", "am_michael", "Thank you, James."]], "exercises": [{"type": "fill", "q": "Student 1 — first name:", "answer": ["karla"]}, {"type": "fill", "q": "Student 1 — last name:", "answer": ["lopez", "lópez"]}, {"type": "fill", "q": "Student 2 — first name:", "answer": ["james"]}, {"type": "fill", "q": "Student 2 — last name:", "answer": ["brown"]}], "post": "After you listen: Spell your first and last name to a classmate. Your classmate writes it.", "peaks": [0.75, 0.41, 0.78, 0.39, 0.56, 0.51, 0.39, 0.26, 0.0, 0.0, 0.0, 0.64, 0.62, 0.41, 0.22, 0.23, 0.12, 0.0, 0.55, 0.31, 0.19, 0.01, 0.0, 0.7, 0.42, 0.39, 0.05, 0.0, 0.0, 0.41, 0.27, 0.16, 0.27, 0.06, 0.0, 0.07, 0.79, 0.34, 0.58, 0.41, 0.26, 0.02, 0.0, 0.41, 0.29, 0.19, 0.66, 0.22, 0.24, 0.07, 0.0, 0.59, 0.48, 0.39, 0.21, 0.36, 0.4, 0.32, 0.01, 0.0, 0.89, 0.76, 0.77, 0.33, 0.76, 0.7, 0.49, 0.27, 0.0, 0.45, 0.44, 0.39, 0.26, 0.02, 0.0, 0.93, 0.88, 0.68, 0.77, 0.63, 0.21, 0.0, 0.92, 1.0, 0.4, 0.2, 0.0, 0.0, 0.0, 0.0], "file": "audio/Unit1_Track02_the-alphabet-spelling-names.mp3", "duration": 35.1}, {"id": "03", "title": "Numbers 0–20 and phone numbers", "focus": "zero – twenty / What's your phone number?", "pre": "Before you listen: Count from zero to twenty in English.", "intro": "Track three. Numbers. Listen to three people. Write their phone numbers.", "lines": [["Daniel", "am_michael", "Sofia, what's your phone number?"], ["Sofia", "af_heart", "It's seven, two, three, four… eight, nine, one, six."], ["Daniel", "am_michael", "Seven, two, three, four, eight, nine, one, six. Thank you."], ["Daniel", "am_michael", "Karla, what's your phone number?"], ["Karla", "af_bella", "It's six, zero, one, two… five, five, three, eight."], ["Daniel", "am_michael", "And James? What's your number?"], ["James", "am_adam", "Seven, nine, eight, zero… one, four, four, two."], ["Daniel", "am_michael", "Great. And how old are you, James?"], ["James", "am_adam", "I'm nineteen."], ["Daniel", "am_michael", "And you, Karla?"], ["Karla", "af_bella", "I'm twenty."]], "exercises": [{"type": "fill", "q": "Sofia's phone number:", "answer": ["72348916", "7234-8916", "7234 8916"]}, {"type": "fill", "q": "Karla's phone number:", "answer": ["60125538", "6012-5538", "6012 5538"]}, {"type": "fill", "q": "James's phone number:", "answer": ["79801442", "7980-1442", "7980 1442"]}, {"type": "mc", "q": "How old is James?", "options": ["Nine", "Nineteen", "Ninety"], "answer": 1}, {"type": "mc", "q": "How old is Karla?", "options": ["Twelve", "Twenty", "Two"], "answer": 1}], "post": "After you listen: Ask three classmates for their age and an invented phone number.", "peaks": [0.84, 0.49, 0.45, 0.38, 0.35, 0.62, 0.59, 0.48, 0.26, 0.0, 0.0, 0.3, 0.7, 0.29, 0.47, 0.27, 0.02, 0.0, 0.46, 0.44, 0.31, 0.27, 0.53, 0.41, 0.33, 0.16, 0.0, 0.74, 0.34, 0.38, 0.37, 0.42, 0.45, 0.25, 0.68, 0.09, 0.0, 0.35, 0.59, 0.4, 0.43, 0.22, 0.0, 0.0, 0.72, 0.38, 0.32, 0.44, 0.44, 0.26, 0.17, 0.0, 0.42, 0.38, 0.63, 0.35, 0.44, 0.0, 0.0, 0.81, 1.0, 0.59, 0.33, 0.85, 0.64, 0.52, 0.17, 0.0, 0.85, 0.5, 0.49, 0.28, 0.31, 0.27, 0.0, 0.85, 0.85, 0.37, 0.0, 0.42, 0.55, 0.54, 0.07, 0.0, 0.5, 0.4, 0.1, 0.0, 0.0, 0.0], "file": "audio/Unit1_Track03_numbers-0-20-and-phone-numbers.mp3", "duration": 39.7}, {"id": "04", "title": "Countries and nationalities", "focus": "Where are you from? / I'm from… / I'm Salvadoran, American, British…", "pre": "Before you listen: Match the country and nationality: El Salvador – Salvadoran, Mexico – Mexican, the United States – American.", "intro": "Track four. Countries and nationalities. Listen to four people. Where are they from?", "lines": [["Daniel", "am_michael", "Hi, I'm Daniel. I'm from San Salvador, El Salvador. I'm Salvadoran."], ["Emma", "bf_emma", "Hello! My name is Emma. I'm from London, in England. I'm British."], ["James", "am_adam", "Hi, I'm James. I'm from Texas, in the United States. I'm American."], ["Lucia", "af_nicole", "Hello. I'm Lucia. I'm from Guadalajara. It's in Mexico. I'm Mexican."], ["Emma", "bf_emma", "James, where are you from?"], ["James", "am_adam", "I'm from Texas. And you, Emma? Are you from Australia?"], ["Emma", "bf_emma", "No, I'm not. I'm from England."]], "exercises": [{"type": "mc", "q": "Daniel is from…", "options": ["Mexico", "El Salvador", "England"], "answer": 1}, {"type": "mc", "q": "Emma is…", "options": ["Australian", "American", "British"], "answer": 2}, {"type": "mc", "q": "James is from…", "options": ["Texas", "London", "Guadalajara"], "answer": 0}, {"type": "mc", "q": "Lucia's nationality is…", "options": ["Salvadoran", "Mexican", "American"], "answer": 1}, {"type": "tf", "q": "Emma is from Australia.", "answer": false}], "post": "After you listen: Introduce yourself in three sentences: name, city, nationality.", "peaks": [0.87, 0.5, 0.58, 0.54, 0.28, 0.58, 0.42, 0.34, 0.49, 0.39, 0.11, 0.0, 0.01, 0.56, 0.26, 0.25, 0.7, 0.39, 0.36, 0.19, 0.34, 0.15, 0.37, 0.37, 0.33, 0.17, 0.0, 0.64, 0.67, 0.71, 0.23, 0.53, 0.56, 0.41, 0.42, 0.39, 0.0, 0.77, 0.75, 0.63, 0.27, 0.85, 0.7, 0.74, 0.64, 0.79, 0.74, 0.11, 0.0, 0.58, 0.52, 0.46, 0.06, 0.0, 0.57, 0.47, 0.44, 0.39, 0.01, 0.0, 0.43, 0.41, 0.39, 0.01, 0.45, 0.34, 0.08, 0.0, 0.73, 0.44, 0.45, 0.19, 0.0, 1.0, 0.77, 0.34, 0.9, 0.8, 0.72, 0.81, 0.21, 0.0, 0.64, 0.45, 0.41, 0.5, 0.24, 0.0, 0.0, 0.0], "file": "audio/Unit1_Track04_countries-and-nationalities.mp3", "duration": 41.5}, {"id": "05", "title": "Personal information: registration form", "focus": "Name, age, city, email / at, dot", "pre": "Before you listen: Look at the form. What information do you need? (name, age, city, email)", "intro": "Track five. Personal information. Listen and complete the registration form.", "lines": [["Daniel", "am_michael", "Hello. Welcome to the English Listening Center. Let's complete your registration."], ["Miguel", "am_eric", "Okay, thank you."], ["Daniel", "am_michael", "What's your first name?"], ["Miguel", "am_eric", "Miguel. M. I. G. U. E. L."], ["Daniel", "am_michael", "And your last name?"], ["Miguel", "am_eric", "Rivas. R. I. V. A. S."], ["Daniel", "am_michael", "How old are you, Miguel?"], ["Miguel", "am_eric", "I'm eighteen."], ["Daniel", "am_michael", "Where are you from?"], ["Miguel", "am_eric", "I'm from Santa Ana."], ["Daniel", "am_michael", "And what's your email address?"], ["Miguel", "am_eric", "It's miguel rivas, at, mail dot com. All one word."], ["Daniel", "am_michael", "Thank you, Miguel. You are in room A, computer number twelve."]], "exercises": [{"type": "fill", "q": "First name:", "answer": ["miguel"]}, {"type": "fill", "q": "Last name:", "answer": ["rivas"]}, {"type": "fill", "q": "Age (number):", "answer": ["18", "eighteen"]}, {"type": "fill", "q": "City:", "answer": ["santa ana"]}, {"type": "fill", "q": "Email:", "answer": ["miguelrivas@mail.com"]}, {"type": "mc", "q": "Computer number:", "options": ["Two", "Twelve", "Twenty"], "answer": 1}], "post": "After you listen: Complete the same form with your own information.", "peaks": [0.8, 0.59, 0.46, 0.43, 0.63, 0.42, 0.65, 0.52, 0.3, 0.02, 0.0, 0.54, 0.73, 0.66, 0.34, 0.29, 0.26, 0.18, 0.66, 0.33, 0.26, 0.29, 0.22, 0.0, 0.46, 0.45, 0.26, 0.0, 1.0, 0.46, 0.31, 0.03, 0.29, 0.43, 0.41, 0.25, 0.32, 0.0, 0.45, 0.44, 0.35, 0.02, 0.0, 0.42, 0.42, 0.34, 0.23, 0.0, 0.62, 0.71, 0.21, 0.3, 0.0, 0.54, 0.37, 0.13, 0.0, 0.5, 0.41, 0.27, 0.0, 0.57, 0.41, 0.34, 0.0, 0.44, 0.71, 0.22, 0.65, 0.15, 0.0, 0.44, 0.43, 0.33, 0.41, 0.32, 0.3, 0.04, 0.0, 0.72, 0.34, 0.19, 0.51, 0.34, 0.26, 0.64, 0.48, 0.0, 0.0, 0.0], "file": "audio/Unit1_Track05_personal-information-registration-form.mp3", "duration": 47.7}, {"id": "06", "title": "Unit review: My first day", "focus": "Review of Unit 1 — short monologue", "pre": "Before you listen: What information do you say when you meet a new person?", "intro": "Track six. Unit review. Listen to Sofia. Answer the questions.", "lines": [["Sofia", "af_heart", "Hi! My name is Sofia Martinez. I'm twenty-one... no, sorry, I'm twenty years old. I'm from San Miguel, in El Salvador. I'm a student at the university. Today is my first day at the English Listening Center. My teacher is Daniel. He's from San Salvador. My new friend is Emma. She's British. She's from London. My computer is number five. I'm very happy!"]], "exercises": [{"type": "mc", "q": "How old is Sofia?", "options": ["Twenty", "Twenty-one", "Twelve"], "answer": 0}, {"type": "mc", "q": "Where is Sofia from?", "options": ["San Salvador", "Santa Ana", "San Miguel"], "answer": 2}, {"type": "mc", "q": "Who is Sofia's new friend?", "options": ["Karla", "Emma", "Lucia"], "answer": 1}, {"type": "tf", "q": "Emma is from London.", "answer": true}, {"type": "tf", "q": "Sofia's computer is number nine.", "answer": false}], "post": "After you listen: Record a short audio (30 seconds) about your first day. Use Sofia's text as a model.", "peaks": [1.0, 0.72, 0.64, 0.45, 0.01, 0.79, 0.77, 0.51, 0.71, 0.71, 0.38, 0.02, 0.0, 0.0, 0.41, 0.62, 0.39, 0.41, 0.34, 0.38, 0.3, 0.01, 0.63, 0.4, 0.17, 0.51, 0.56, 0.72, 0.39, 0.34, 0.49, 0.01, 0.93, 0.38, 0.56, 0.44, 0.51, 0.39, 0.26, 0.82, 0.45, 0.66, 0.47, 0.36, 0.15, 0.0, 0.56, 0.5, 0.4, 0.4, 0.41, 0.32, 0.29, 0.36, 0.27, 0.0, 0.38, 0.36, 0.38, 0.29, 0.33, 0.42, 0.46, 0.59, 0.27, 0.39, 0.42, 0.66, 0.64, 0.07, 0.3, 0.36, 0.18, 0.29, 0.5, 0.38, 0.11, 0.03, 0.5, 0.41, 0.5, 0.59, 0.52, 0.48, 0.62, 0.18, 0.0, 0.0, 0.0, 0.0], "file": "audio/Unit1_Track06_unit-review-my-first-day.mp3", "duration": 32.3}]};
+const $ = id => document.getElementById(id);
+const audio = $('audio');
+let cur = 0, plays = {}, done = {};
+try { done = JSON.parse(localStorage.getItem('elc-u1-done') || '{}') || {}; } catch(e) { done = {}; }
+const saveDone = () => { try { localStorage.setItem('elc-u1-done', JSON.stringify(done)); } catch(e) {} };
+const fmt = s => { s = Math.max(0, Math.floor(s||0)); return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); };
+const norm = s => s.toLowerCase().replace(/\s+/g,' ').trim().replace(/[.]$/,'');
+
+$('u-label').textContent = U.unit + ' · ' + U.level;
+$('u-title').textContent = U.title;
+U.goals.forEach(g => { const li = document.createElement('li'); li.textContent = g; $('u-goals').appendChild(li); });
+
+function renderList(){
+  const ul = $('tracks'); ul.innerHTML = '';
+  U.tracks.forEach((t,i) => {
+    const li = document.createElement('li');
+    const b = document.createElement('button');
+    b.setAttribute('aria-current', i===cur ? 'true':'false');
+    const st = done[t.id] ? `<span class="status done">${done[t.id]}</span>` : `<span class="status">${fmt(t.duration)}</span>`;
+    b.innerHTML = `<span class="tno">T${t.id}</span><span><span class="tt"></span></span>${st}`;
+    b.querySelector('.tt').textContent = t.title;
+    b.onclick = () => load(i);
+    li.appendChild(b); ul.appendChild(li);
+  });
+  const n = Object.keys(done).length;
+  $('m-text').textContent = n + '/' + U.tracks.length;
+  $('m-bar').style.width = (100*n/U.tracks.length) + '%';
+}
+
+function load(i){
+  cur = i; const t = U.tracks[i];
+  audio.pause(); audio.src = t.file; audio.playbackRate = Number(document.querySelector('.sp[aria-pressed="true"]').dataset.s);
+  $('b-no').textContent = 'Track ' + t.id + ' · ' + fmt(t.duration);
+  $('b-title').textContent = t.title;
+  $('b-focus').textContent = t.focus;
+  $('pre').textContent = t.pre; $('post').textContent = t.post;
+  $('plays').textContent = plays[t.id] || 0;
+  const w = $('wave'); w.innerHTML = '';
+  t.peaks.forEach(p => { const s = document.createElement('span'); s.style.height = Math.max(8, p*100) + '%'; w.appendChild(s); });
+  // questions
+  const qs = $('qs'); qs.innerHTML = ''; $('score').textContent = '';
+  t.exercises.forEach((e,k) => {
+    const li = document.createElement('li'); li.className = 'q';
+    const qt = document.createElement('div'); qt.className = 'qt'; qt.textContent = e.q; li.appendChild(qt);
+    if (e.type === 'fill') {
+      const inp = document.createElement('input'); inp.className = 'fill'; inp.id = `t${t.id}-q${k}`; inp.setAttribute('aria-label', e.q);
+      li.appendChild(inp);
+    } else {
+      const opts = e.type === 'tf' ? ['True','False'] : e.options;
+      const box = document.createElement('div'); box.className = 'opts';
+      opts.forEach((o,j) => {
+        const d = document.createElement('div'); d.className = 'opt';
+        const id = `t${t.id}-q${k}-o${j}`;
+        d.innerHTML = `<input type="radio" name="t${t.id}-q${k}" id="${id}" value="${j}"><label for="${id}"></label>`;
+        d.querySelector('label').textContent = o; box.appendChild(d);
+      });
+      li.appendChild(box);
+    }
+    const fb = document.createElement('div'); fb.className = 'fb'; fb.hidden = true; li.appendChild(fb);
+    qs.appendChild(li);
+  });
+  // transcript
+  const tx = $('tx'); tx.innerHTML = ''; tx.hidden = true; $('tbtn').textContent = 'Show transcript'; $('tbtn').setAttribute('aria-expanded','false');
+  const intro = document.createElement('div'); intro.className = 'intro'; intro.textContent = t.intro; tx.appendChild(intro);
+  t.lines.forEach(([who,,txt]) => { const d = document.createElement('div'); d.innerHTML = '<span class="who"></span><span></span>'; d.children[0].textContent = who; d.children[1].textContent = txt; tx.appendChild(d); });
+  setIcon(false); tick(); renderList();
+}
+
+$('quiz').addEventListener('submit', ev => {
+  ev.preventDefault(); const t = U.tracks[cur]; let ok = 0;
+  t.exercises.forEach((e,k) => {
+    const li = $('qs').children[k]; const fb = li.querySelector('.fb'); let right, shown;
+    if (e.type === 'fill') {
+      const v = norm($(`t${t.id}-q${k}`).value);
+      right = e.answer.some(a => norm(a) === v || norm(a).replace(/[\s-]/g,'') === v.replace(/[\s-]/g,''));
+      shown = e.answer[0];
+    } else {
+      const c = li.querySelector('input:checked'); const v = c ? Number(c.value) : -1;
+      const ans = e.type === 'tf' ? (e.answer ? 0 : 1) : e.answer;
+      right = v === ans; shown = e.type === 'tf' ? (e.answer ? 'True' : 'False') : e.options[e.answer];
+    }
+    fb.hidden = false; fb.className = 'fb ' + (right ? 'ok' : 'bad');
+    fb.textContent = right ? 'Correct' : 'Answer: ' + shown;
+    if (right) ok++;
+  });
+  $('score').textContent = ok + ' / ' + t.exercises.length;
+  done[t.id] = ok + '/' + t.exercises.length; saveDone(); renderList();
+});
+$('reset').onclick = () => load(cur);
+
+$('tbtn').onclick = () => { const tx = $('tx'); tx.hidden = !tx.hidden; $('tbtn').textContent = tx.hidden ? 'Show transcript' : 'Hide transcript'; $('tbtn').setAttribute('aria-expanded', String(!tx.hidden)); };
+
+function setIcon(p){ $('play-ico').innerHTML = p ? '<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>' : '<path d="M8 5v14l11-7z"/>'; $('play').setAttribute('aria-label', p ? 'Pause' : 'Play'); }
+$('play').onclick = () => { if (audio.paused) { audio.play().catch(()=>{}); } else audio.pause(); };
+audio.onplay = () => setIcon(true);
+audio.onpause = () => setIcon(false);
+audio.onended = () => { const id = U.tracks[cur].id; plays[id] = (plays[id]||0) + 1; $('plays').textContent = plays[id]; audio.currentTime = 0; };
+function tick(){
+  const t = U.tracks[cur]; const d = audio.duration || t.duration; const p = (audio.currentTime||0) / d;
+  $('time').textContent = fmt(audio.currentTime) + ' / ' + fmt(d);
+  const bars = $('wave').children; const n = Math.floor(p * bars.length);
+  for (let i=0;i<bars.length;i++) bars[i].classList.toggle('on', i < n);
+  $('wave').setAttribute('aria-valuenow', Math.round(p*100));
+}
+audio.ontimeupdate = tick;
+$('wave').onclick = e => { const r = e.currentTarget.getBoundingClientRect(); const d = audio.duration || U.tracks[cur].duration; audio.currentTime = d * (e.clientX - r.left) / r.width; tick(); };
+$('wave').onkeydown = e => { if (e.key==='ArrowRight') audio.currentTime += 5; if (e.key==='ArrowLeft') audio.currentTime -= 5; tick(); };
+$('back5').onclick = () => { audio.currentTime = Math.max(0, audio.currentTime - 5); tick(); };
+document.querySelectorAll('.sp').forEach(b => b.onclick = () => {
+  document.querySelectorAll('.sp').forEach(x => x.setAttribute('aria-pressed','false'));
+  b.setAttribute('aria-pressed','true'); audio.playbackRate = Number(b.dataset.s);
+});
+load(0);
+</script>
+
+</body></html>
